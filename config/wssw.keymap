@@ -116,6 +116,17 @@ combo_##NAME { \
         COMBO(bspc, &kp BSPC, 3 5)
         SLOWCOMBO(del, &kp DEL, 4 13)
         COMBO(delword, &kp LC(BSPC), 3 13)
+/* numbers */
+        LAYER_COMBO(L0, &kp N0, 1 2, 1)
+        LAYER_COMBO(L9, &kp N9, 9 10, 1)
+        LAYER_COMBO(L8, &kp N8, 2 3, 1)
+        LAYER_COMBO(L7, &kp N7, 10 11, 1)
+        LAYER_COMBO(R7, &kp N7, 12 13, 1)
+        LAYER_COMBO(R8, &kp N8, 4 5, 1)
+        LAYER_COMBO(R9, &kp N9, 13 14, 1)
+        LAYER_COMBO(R0, &kp N0, 5 6, 1)
+        LAYER_COMBO(Lplus, &kp PLUS, 2 11, 1)
+        LAYER_COMBO(Rplus, &kp PLUS, 5 12, 1)
     };
 };
 
@@ -204,7 +215,7 @@ combo_##NAME { \
             bindings = <
                                 &hl LALT MINUS &hl LGUI STAR  &hl LSHFT SLASH    &kp N4         &kp N5         &kp N6
                  &hl LCTRL PLUS &kp N9         &kp N8         &kp N7             &kp N1         &kp N2         &kp N3         &dotcol
-                                              &trans         &trans             &kp E          &kp N0
+                                              &trans         &trans             &kp trans          &kp trans
             >;
         };
         navigation {
