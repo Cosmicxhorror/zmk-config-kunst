@@ -16,34 +16,27 @@
 #define FUN 4
 #define BUZ 5
 
+
 &caps_word {
     continue-list = <UNDERSCORE MINUS BSPC LSHFT RSHFT>;
 };
 
 / {
     macros {
-        // promising candidate, only problem: impossible to hold shift through
-        // the activation and still have it registered as held afterwards
+	// promising candidate, only problem: impossible to hold shift through
+	// the activation and still have it registered as held afterwards
         macro_shiftable_sch: macro_shiftable_sch {
             label = "Macro_shiftable_sch";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <
-                &macro_tap &kp S
-                &macro_release &kp RSHIFT
-                &macro_tap &kp C &kp H
+                    &macro_tap &kp S
+                    &macro_release &kp RSHIFT
+                    &macro_tap &kp C &kp H
             >;
             tap-ms = <10>;
         };
     };
-};
-
-#define LAYER_COMBO(NAME, BINDINGS, KEYPOS, LAYERS) \
-combo_##NAME { \
-    timeout-ms = <20>; \
-    bindings = <BINDINGS>; \
-    key-positions = <KEYPOS>; \
-    layers = <LAYERS>; \
 };
 
 #define COMBO(NAME, BINDINGS, KEYPOS) \
@@ -51,54 +44,49 @@ combo_##NAME { \
     timeout-ms = <20>; \
     bindings = <BINDINGS>; \
     key-positions = <KEYPOS>; \
-    layers = <0>; \
 };
-
 #define SLOWCOMBO(NAME, BINDINGS, KEYPOS) \
 combo_##NAME { \
     timeout-ms = <40>; \
     bindings = <BINDINGS>; \
     key-positions = <KEYPOS>; \
-    layers = <0>; \
 };
-
 #define TCOMBO(NAME, BINDINGS, KEYPOS, TIMEOUT) \
 combo_##NAME { \
     timeout-ms = <TIMEOUT>; \
     bindings = <BINDINGS>; \
     key-positions = <KEYPOS>; \
-    layers = <0>; \
 };
 
 #define COMBOS_TOP_ROW(LTPR, LTRM, LTMI, MTII, RTIM, RTMR, RTRP) \
-    SLOWCOMBO(_ltpr, LTPR, 6 0) \
-    COMBO(_ltrm, LTRM, 0 1) \
-    COMBO(_ltmi, LTMI, 1 2) \
-    SLOWCOMBO(_mtii, MTII, 2 3) \
-    COMBO(_rtim, RTIM, 3 4) \
-    COMBO(_rtmr, RTMR, 4 5) \
-    SLOWCOMBO(_rtrp, RTRP, 5 13)
-
+	SLOWCOMBO(_ltpr, LTPR, 6 0) \
+	COMBO(_ltrm, LTRM, 0 1) \
+	COMBO(_ltmi, LTMI, 1 2) \
+	SLOWCOMBO(_mtii, MTII, 2 3) \
+	COMBO(_rtim, RTIM, 3 4) \
+	COMBO(_rtmr, RTMR, 4 5) \
+	SLOWCOMBO(_rtrp, RTRP, 5 13)
 #define COMBOS_BOT_ROW(LBRM, LBMI, MBII, RBIM, RBMR) \
-    COMBO(_lbrm, LBRM, 7 8) \
-    COMBO(_lbmi, LBMI, 8 9) \
-    SLOWCOMBO(_mbii, MBII, 9 10) \
-    COMBO(_rbim, RBIM, 10 11) \
-    COMBO(_rbmr, RBMR, 11 12)
+	COMBO(_lbrm, LBRM, 7 8) \
+	COMBO(_lbmi, LBMI, 8 9) \
+	SLOWCOMBO(_mbii, MBII, 9 10) \
+	COMBO(_rbim, RBIM, 10 11) \
+	COMBO(_rbmr, RBMR, 11 12)
 
-//          00  01  02          03  04  05
-//      06  07  08  09          10  11  12  13
-//                  14  15  16  17
+	//			00	01	02			03	04	05
+	//		06	07	08	09			10	11	12	13
+	//					14	15	16	17
 
-/ {
+/{
     combos {
         compatible = "zmk,combos";
-
-        /* alphas */
+/* alphas */
+                     //  0+1    1+2    2+3    3+4    4+5      5+6      6+7
         COMBOS_TOP_ROW(&kp W, &kp M, &kp B, &kp K, &kp V, &comsem, &dotcol)
-        COMBOS_BOT_ROW(&kp F, &kp P, &kp J, &kp X, &kp Z)
+               COMBOS_BOT_ROW(&kp F, &kp P, &kp J, &kp X, &kp Z)
+                            //  8+9   9+10  10+11  11+12  12+13
 
-        /* usually on base layer */
+/* usually on base layer */
         COMBO(q, &kp Q, 7 9)
         COMBO(k, &kp K, 1 9)
         COMBO(j, &kp J, 4 10)
@@ -110,8 +98,7 @@ combo_##NAME { \
         COMBO(minus, &kp MINUS, 11 12 17)
         COMBO(slash, &kp SLASH, 12 13 17)
         COMBO(esc2, &kp ESC, 8 9 15)
-
-        /* parentheticals */
+/* parentheticals */
         COMBO(lt, &kp LT, 0 9)
         COMBO(lbrc, &kp LBRC, 0 7)
         COMBO(lbkt, &kp LBKT, 1 8)
@@ -120,43 +107,48 @@ combo_##NAME { \
         COMBO(rpar, &kp RPAR, 3 10)
         COMBO(rbkt, &kp RBKT, 4 11)
         COMBO(rbrc, &kp RBRC, 5 12)
-
-        /* caps */
+/* caps */
         COMBO(caps, &caps_word, 1 4)
         COMBO(capslock, &kp CAPSLOCK, 0 5)
-
-        /* deletion */
+/* deletion */
         COMBO(bspc, &kp BSPC, 3 5)
         SLOWCOMBO(del, &kp DEL, 4 13)
         COMBO(delword, &kp LC(BSPC), 3 13)
     };
 };
 
-//          00  01  02          03  04  05
-//      06  07  08  09          10  11  12  13
-//                  14  15  16  17
+	//			00	01	02			03	04	05
+	//		06	07	08	09			10	11	12	13
+	//					14	15	16	17
+
 
 / {
+
     behaviors {
         hl: homerow_mods_left {
             compatible = "zmk,behavior-hold-tap";
             label = "homerow mods left";
             #binding-cells = <2>;
+            // flavor = "tap-preferred";
             flavor = "balanced";
             tapping-term-ms = <150>;
             quick-tap-ms = <100>;
-            bindings = <&kp &kp>;
+            // global-quick-tap;
+            bindings = <&kp>, <&kp>;
+            // opposite side hand keys
             hold-trigger-key-positions = <3 4 5 10 11 12 13 16 17>;
         };
-
         hr: homerow_mods_right {
             compatible = "zmk,behavior-hold-tap";
             label = "homerow mods right";
             #binding-cells = <2>;
+            // flavor = "tap-preferred";
             flavor = "balanced";
             tapping-term-ms = <150>;
             quick-tap-ms = <100>;
-            bindings = <&kp &kp>;
+            // global-quick-tap;
+            bindings = <&kp>, <&kp>;
+            // opposite side hand keys
             hold-trigger-key-positions = <0 1 2 6 7 8 9 14 15>;
         };
 
@@ -165,25 +157,28 @@ combo_##NAME { \
             label = "my layer taps";
             #binding-cells = <2>;
             flavor = "tap-preferred";
+            // flavor = "balanced";
             tapping-term-ms = <160>;
             quick-tap-ms = <100>;
+            // global-quick-tap;
             bindings = <&mo &kp>, <&kp>;
+            // non-thumb keys
+            // hold-trigger-key-positions = <0 1 2 3 4 5 6 7 8 9 10 11 12 13>;
         };
 
         dotcol: dot_colon {
             compatible = "zmk,behavior-mod-morph";
             label = "DOT_COL";
             #binding-cells = <0>;
-            bindings = <&kp DOT &kp COLON>;
-            mods = <(MOD_LSFT | MOD_RSFT)>;
+            bindings = <&kp DOT>, <&kp COLON>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
-
         comsem: comma_semicolon {
             compatible = "zmk,behavior-mod-morph";
             label = "COM_SEM";
             #binding-cells = <0>;
-            bindings = <&kp COMMA &kp SEMI>;
-            mods = <(MOD_LSFT | MOD_RSFT)>;
+            bindings = <&kp COMMA>, <&kp SEMI>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
     };
 };
@@ -196,51 +191,47 @@ combo_##NAME { \
             label = "APT";
 
             bindings = <
-                &hl LALT S     &hl LGUI T     &hl LSHFT H      &hr RSHFT N    &hr RGUI A     &hr LALT I
-                &hl LCTRL R    &kp C          &kp G            &kp D          &kp L          &kp U          &kp Y          &hr RCTRL O
-                                &my_lt NAV SPACE  &my_lt NAV SPACE  &my_lt SYM E  &my_lt SYM E
+                              &hl LALT S     &hl LGUI T     &hl LSHFT H        &hr RSHFT N    &hr RGUI A     &hr LALT I
+                 &hl LCTRL R   &kp C          &kp G          &kp D              &kp L          &kp U          &kp Y          &hr RCTRL O
+                                              &my_lt NAV SPACE &my_lt NAV SPACE   &my_lt SYM E   &my_lt SYM E
             >;
         };
-
         numbers {
             label = "NUM";
 
             bindings = <
-                &hl LALT MINUS &hl LGUI STAR  &hl LSHFT SLASH  &kp N4         &kp N5         &kp N6
-                &hl LCTRL PLUS &kp N9         &kp N8           &kp N7         &kp N1         &kp N2         &kp N3         &dotcol
-                                &trans         &trans           &trans         &trans
+                                &hl LALT MINUS &hl LGUI STAR  &hl LSHFT SLASH    &kp N4         &kp N5         &kp N6
+                 &hl LCTRL PLUS &kp N9         &kp N8         &kp N7             &kp N1         &kp N2         &kp N3         &dotcol
+                                              &trans         &trans             &kp trans          &kp trans
             >;
         };
-
         navigation {
             label = "NAV";
 
             bindings = <
-                &sk LALT       &sk LGUI       &sk LSHFT        &kp LEFT       &kp DOWN       &kp UP
-                &sk LCTRL      &kp C_VOL_UP   &kp PG_UP        &kp C_VOL_DN   &kp HOME       &kp PG_DN      &kp END        &kp RIGHT
-                                &trans         &trans           &sk RALT       &trans
+                               &sk LALT       &sk LGUI       &sk LSHFT          &kp LEFT       &kp DOWN       &kp UP
+                 &sk LCTRL     &kp C_VOL_UP   &kp PG_UP      &kp C_VOL_DN       &kp HOME       &kp PG_DN      &kp END        &kp RIGHT
+                                              &trans         &trans             &sk RALT       &trans
             >;
         };
-
         symbols {
             label = "SYM";
 
             bindings = <
-                &kp AT         &kp HASH       &kp DOLLAR       &kp AMPERSAND  &kp ASTERISK   &kp PERCENT
-                &kp EXCL       &kp GRAVE      &kp DQT          &kp UNDERSCORE &kp BACKSLASH  &kp PIPE       &kp EQUAL      &kp CARET
-                                &kp TILDE      &trans           &trans         &trans
+                               &kp AT         &kp HASH       &kp DOLLAR         &kp AMPERSAND  &kp ASTERISK   &kp PERCENT
+                 &kp EXCL      &kp GRAVE      &kp DQT        &kp UNDERSCORE     &kp BACKSLASH  &kp PIPE       &kp EQUAL      &kp CARET
+                                              &kp TILDE      &trans         &trans         &trans
             >;
         };
-
         function {
             label = "FUN";
 
             bindings = <
-                &kp F12        &kp F11        &kp F10          &kp F4         &kp F5         &kp F6
-                &bootloader    &kp F9         &kp F8           &kp F7         &kp F1         &kp F2         &kp F3         &none
-                                &trans         &trans           &trans         &trans
+                               &kp F12        &kp F11        &kp F10            &kp F4         &kp F5         &kp F6
+                 &bootloader   &kp F9         &kp F8         &kp F7             &kp F1         &kp F2         &kp F3         &none
+                                              &trans         &trans             &trans         &trans
             >;
         };
+
     };
 };
-
