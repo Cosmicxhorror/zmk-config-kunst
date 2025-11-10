@@ -39,13 +39,6 @@
     };
 };
 
-#define LAYER_COMBO(NAME, BINDINGS, KEYPOS, LAYERS) \
-combo_##NAME { \
-    timeout-ms = <20>; \
-    bindings = <BINDINGS>; \
-    key-positions = <KEYPOS>; \
-    layers = <LAYERS>; \
-};
 #define COMBO(NAME, BINDINGS, KEYPOS) \
 combo_##NAME { \
     timeout-ms = <20>; \
