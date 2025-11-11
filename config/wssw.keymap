@@ -29,9 +29,9 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <
-                &macro_tap &kp S
+                &macro_tap &kp Q
                 &macro_release &kp RSHIFT
-                &macro_tap &kp C &kp H
+                &macro_tap &kp U
             >;
             tap-ms = <10>;
         };
@@ -110,6 +110,7 @@ combo_##NAME { \
         COMBO(minus, &kp MINUS, 11 12 17)
         COMBO(slash, &kp SLASH, 12 13 17)
         COMBO(esc2, &kp ESC, 8 9 15)
+        COMBO(tab, &kp TAB, 7 8 9)
 
         /* parentheticals */
         COMBO(lt, &kp LT, 0 9)
@@ -131,11 +132,11 @@ combo_##NAME { \
         COMBO(delword, &kp LC(BSPC), 3 13)
 
         /* numbers */
-        LAYER_COMBO(R7, &kp N7, 12 13, 1)
-        LAYER_COMBO(R8, &kp N8, 4 5, 1)
-        LAYER_COMBO(R9, &kp N9, 13 14, 1)
-        LAYER_COMBO(R0, &kp N0, 5 6, 1)
-        LAYER_COMBO(Rplus, &kp PLUS, 5 12, 1)
+        LAYER_COMBO(R7, &kp N7, 10 11, 1)
+        LAYER_COMBO(R8, &kp N8, 3 4, 1)
+        LAYER_COMBO(R9, &kp N9, 11 12, 1)
+        LAYER_COMBO(R0, &kp N0, 4 5, 1)
+        LAYER_COMBO(Rplus, &kp PLUS, 4 10, 1)
     };
 };
 
@@ -194,6 +195,15 @@ combo_##NAME { \
         };
     };
 };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        fun {
+            if-layers = <2 1>;
+            then-layer = <3>;
+        };
+    };
 
 / {
     keymap {
